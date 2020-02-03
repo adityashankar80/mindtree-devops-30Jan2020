@@ -26,14 +26,6 @@ node {
    stage('Maven-Package') {
    sh label: '', script: 'mvn package'
   }
-  
-  stage('sonar analasys'){
-            steps{
-                withSonarQubeEnv('sonar'){
-                    sh 'mvn sonar:sonar'
-                }
-            }
-        }
    stage('Archive-Artifacts') {
    archiveArtifacts 'target/*.war'
   }
