@@ -32,6 +32,19 @@ node {
          sh 'mvn sonar:sonar'
         }
         }
+	
+	stage('Jfrog Artifacory Upload') {
+ 	def server= Artifactory.server 'Artifactory'
+ 	def uploadSpec= """{
+ 	"files": [{
+ 	"pattern": "/var/lib/jenkins/workspace/Aws_Demo/01-Jenkins/Code/petclinic/target/*.war",
+ 	"target": "petclinic"}]
+ 	}"""
+ 	server.upload(uploadSpec)
+ 	 
+ 	}
+
+
    stage('Archive-Artifacts') {
    archiveArtifacts 'target/*.war'
   }
